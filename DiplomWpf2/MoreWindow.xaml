@@ -1,0 +1,169 @@
+﻿<Window x:Class="DiplomWpf2.MoreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        Title="MoreWindow" Height="450" Width="500">
+    <Grid Background="White">
+        <Grid.Resources>
+            <!-- Стили из первоначального оформления -->
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Padding" Value="15"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="Margin" Value="5 8"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Montserrat"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Background" Value="#F56E53"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="150"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF1E00"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="GreenButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="#4CAF50"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#388E3C"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="ListBox">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Background="Transparent" CornerRadius="5">
+                                <ContentPresenter Margin="5"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F1F8E9"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Заголовок с оранжевым акцентом -->
+        <Border Grid.ColumnSpan="2" Background="White" Margin="20 20 20 10" CornerRadius="10"
+            BorderBrush="#F56E53" BorderThickness="2">
+            <TextBlock Text="Подробнее о букете" 
+                   FontFamily="Playfair Display"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="#F56E53"
+                   HorizontalAlignment="Center"
+                   Padding="10"/>
+        </Border>
+
+        <!-- Левая панель информации -->
+        <Border Grid.Row="1" Grid.Column="0" Margin="20 0 10 20">
+            <ScrollViewer>
+                <StackPanel>
+                    <!-- Название с зеленым акцентом -->
+                    <TextBlock Text="Название:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"/>
+                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="1">
+                        <TextBlock Text="{Binding SelectedBuket.NameBuket}" 
+                               FontSize="18"/>
+                    </Border>
+
+                    <!-- Цена с красным акцентом -->
+                    <TextBlock Text="Цена:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"
+                           Margin="0 15 0 0"/>
+                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="1">
+                        <TextBlock Text="{Binding SelectedBuket.PriceBuket, StringFormat='{}{0} руб.'}" 
+                               FontSize="18"
+                               Foreground="#FF1E00"
+                               FontWeight="Bold"/>
+                    </Border>
+                    
+                    <!-- Состав букета с зеленой панелью -->
+                    <TextBlock Text="Состав букета:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"
+                           Margin="0 15 0 0"/>
+                    <Border Background="#F1F8E9" CornerRadius="8" Padding="10">
+                        <ListBox ItemsSource="{Binding Tovars}"
+                             DisplayMemberPath="NameTovar"/>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Правая панель с изображением -->
+        <Border Grid.Row="1" Grid.Column="1" Margin="10 0 20 20"
+            Background="#FFF5F5F5" CornerRadius="10">
+            <Grid>
+                <Image Source="{Binding SelectedBuket.ImageBuket}" 
+                   Stretch="Uniform"
+                   Margin="20"
+                   VerticalAlignment="Center"/>
+               
+            </Grid>
+        </Border>
+
+        <!-- Кнопки действий -->
+        <StackPanel Grid.Row="1" Grid.Column="1" 
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0 0 20 20">
+            <Button Content="Назад" Width="100" Click="Back"/>
+        </StackPanel>
+    </Grid>
+</Window>

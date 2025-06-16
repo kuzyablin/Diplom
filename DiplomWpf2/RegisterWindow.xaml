@@ -1,0 +1,164 @@
+﻿<Window x:Class="DiplomWpf2.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Регистрация" Height="750" Width="500" MaxHeight="750" MaxWidth="500">
+    <Grid Background="White">
+        <Grid.Resources>
+            <!-- Общие стили -->
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="Margin" Value="5 10 5 5"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="5 0 5 15"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="#F56E53"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="#F56E53"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="PasswordBox">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="5 0 5 15"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="#F56E53"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="#F56E53"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Montserrat"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Background" Value="#F56E53"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="Margin" Value="5 10"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF1E00"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="#F56E53"/>
+                <Setter Property="BorderBrush" Value="#F56E53"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FFF5F5F5"/>
+                        <Setter Property="Foreground" Value="#FF1E00"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Регистрация" 
+               FontFamily="Playfair Display"
+               FontSize="28" 
+               FontWeight="Bold" 
+               Foreground="#FF1E00" 
+               Margin="20 20"
+               HorizontalAlignment="Center"/>
+
+        <!-- Форма ввода -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20 0">
+            <StackPanel Width="400" MaxWidth="500" Height="500" Margin="0 0 0 20">
+
+                <!-- Логин -->
+                <TextBlock Text="Логин:" FontWeight="SemiBold"/>
+                <TextBox Name="LoginTextBox"/>
+
+                <!-- Пароль -->
+                <TextBlock Text="Пароль:" FontWeight="SemiBold"/>
+                <PasswordBox Name="PasswordBox"/>
+
+                <!-- Телефон -->
+                <TextBlock Text="Номер телефона:" FontWeight="SemiBold"/>
+                <TextBox Name="NumberTextBox"/>
+
+                <!-- Email -->
+                <TextBlock Text="Электронная почта:" FontWeight="SemiBold"/>
+                <TextBox Name="EmailTextBox"/>
+
+                <!-- Кнопка получения кода -->
+                <Button Content="Получить код" 
+                    Click="SendCode"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 5 20"/>
+
+                <!-- Код верификации -->
+                <TextBlock Text="Код верификации:" FontWeight="SemiBold"/>
+                <TextBox Name="CodeTextBox"/>
+                
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Нижняя панель с кнопками -->
+        <Border Grid.Row="2" Background="#FFF9F9F9" BorderThickness="1 0 0 0" BorderBrush="#E0E0E0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 15">
+                <Button Content="Отмена" 
+                    Style="{StaticResource SecondaryButton}"
+                    Click="Nazad"/>
+                <Button Content="Зарегистрироваться" 
+                    Margin="15 0 0 0"
+                    Click="VerifyCode"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

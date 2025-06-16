@@ -1,0 +1,156 @@
+﻿<Window x:Class="DiplomWpf2.AccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        Title="AccountWindow" Height="593" Width="800">
+    <Grid Background="White">
+        <Grid.Resources>
+            <!-- Общие стили из предыдущих окон -->
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Padding" Value="15"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="Margin" Value="8 5"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Montserrat"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="Margin" Value="10 5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF1E00"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Стили для разных кнопок -->
+            <Style x:Key="OrangeButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="#F56E53"/>
+            </Style>
+
+            <Style x:Key="GreenButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="#4CAF50"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#388E3C"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="WhiteButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="#F56E53"/>
+                <Setter Property="BorderBrush" Value="#F56E53"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FFF5F5F5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок с оранжевым акцентом -->
+        <Border Grid.Row="0" Background="#F56E53" CornerRadius="10 10 0 0" 
+            Margin="20 20 20 0" Padding="15" BorderThickness="0">
+            <TextBlock Text="Ваш профиль" 
+                   FontFamily="Playfair Display"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Основная информация -->
+        <Border Grid.Row="1" Margin="20 15 20 10" CornerRadius="10">
+            <ScrollViewer>
+                <StackPanel>
+                    <!-- Логин -->
+                    <TextBlock Text="Логин:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"/>
+                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                        <TextBlock Text="{Binding User.NameUser}" 
+                               FontSize="16"/>
+                    </Border>
+
+                    <!-- Электронная почта -->
+                    <TextBlock Text="Электронная почта:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"
+                           Margin="0 15 0 0"/>
+                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                        <TextBlock Text="{Binding User.EmailUser}" 
+                               FontSize="16"/>
+                    </Border>
+
+                    <!-- Номер телефона -->
+                    <TextBlock Text="Номер телефона:" 
+                           FontWeight="Bold"
+                           Foreground="#4CAF50"
+                           Margin="0 15 0 0"/>
+                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                        <TextBlock Text="{Binding User.NumberUser}" 
+                               FontSize="16"/>
+                    </Border>
+
+                    <!-- Кнопки действий -->
+                    <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0 25">
+                        <Button Content="Изменить пароль" 
+                            Style="{StaticResource GreenButton}"
+                            Click="ChangePassword"/>
+
+                        <Button Content="Редактировать данные" 
+                            Style="{StaticResource OrangeButton}"
+                            Click="EditProfile"
+                            Margin="15 0 0 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Нижняя панель с кнопкой "Назад" -->
+        <Border Grid.Row="2" Background="#FFF9F9F9" BorderThickness="0 1 0 0" BorderBrush="#E0E0E0">
+            <Button Content="Назад" 
+                Style="{StaticResource WhiteButton}"
+                HorizontalAlignment="Right"
+                Margin="20 10"
+                Click="Back"/>
+        </Border>
+    </Grid>
+</Window>
