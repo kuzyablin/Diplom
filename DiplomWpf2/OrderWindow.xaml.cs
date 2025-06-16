@@ -152,6 +152,7 @@ namespace DiplomWpf2
             SelectedShit = b.Tag as NewShit;
             try
             {
+
                 await Client.Instance.DeleteTovarInOrder(SelectedShit.Tovar.IdTovar);
                 SelectedOrder.Tovars.Remove(SelectedShit.Tovar);
                 Items.Remove(SelectedShit);
