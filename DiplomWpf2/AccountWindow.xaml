@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomWpf2"
         mc:Ignorable="d"
-        Title="AccountWindow" Height="593" Width="800">
-    <Grid Background="White">
+        Title="Аккаунт" Height="550" Width="500">
+    <Grid Background="White" Height="550">
         <Grid.Resources>
             <!-- Общие стили из предыдущих окон -->
             <Style TargetType="Border">
@@ -95,53 +95,51 @@
         </Border>
 
         <!-- Основная информация -->
-        <Border Grid.Row="1" Margin="20 15 20 10" CornerRadius="10">
-            <ScrollViewer>
-                <StackPanel>
-                    <!-- Логин -->
-                    <TextBlock Text="Логин:" 
+        <Border Grid.Row="1" Margin="20 15 20 80" CornerRadius="10">
+            <StackPanel>
+                <!-- Логин -->
+                <TextBlock Text="Логин:" 
                            FontWeight="Bold"
                            Foreground="#4CAF50"/>
-                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
-                        <TextBlock Text="{Binding User.NameUser}" 
+                <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                    <TextBlock Text="{Binding User.NameUser}" 
                                FontSize="16"/>
-                    </Border>
+                </Border>
 
-                    <!-- Электронная почта -->
-                    <TextBlock Text="Электронная почта:" 
+                <!-- Электронная почта -->
+                <TextBlock Text="Электронная почта:" 
                            FontWeight="Bold"
                            Foreground="#4CAF50"
                            Margin="0 15 0 0"/>
-                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
-                        <TextBlock Text="{Binding User.EmailUser}" 
+                <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                    <TextBlock Text="{Binding User.EmailUser}" 
                                FontSize="16"/>
-                    </Border>
+                </Border>
 
-                    <!-- Номер телефона -->
-                    <TextBlock Text="Номер телефона:" 
+                <!-- Номер телефона -->
+                <TextBlock Text="Номер телефона:" 
                            FontWeight="Bold"
                            Foreground="#4CAF50"
                            Margin="0 15 0 0"/>
-                    <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
-                        <TextBlock Text="{Binding User.NumberUser}" 
+                <Border Background="#FFF5F5F5" CornerRadius="8" Padding="10">
+                    <TextBlock Text="{Binding User.NumberUser}" 
                                FontSize="16"/>
-                    </Border>
+                </Border>
 
-                    <!-- Кнопки действий -->
-                    <StackPanel Orientation="Horizontal" 
+                <!-- Кнопки действий -->
+                <StackPanel Orientation="Horizontal" 
                             HorizontalAlignment="Center"
                             Margin="0 25">
-                        <Button Content="Изменить пароль" 
+                    <!--<Button Content="Изменить пароль" 
                             Style="{StaticResource GreenButton}"
-                            Click="ChangePassword"/>
+                            Click="ChangePassword"/>-->
 
-                        <Button Content="Редактировать данные" 
+                    <!--<Button Content="Редактировать данные" 
                             Style="{StaticResource OrangeButton}"
                             Click="EditProfile"
-                            Margin="15 0 0 0"/>
-                    </StackPanel>
+                            Margin="15 0 0 0"/>-->
                 </StackPanel>
-            </ScrollViewer>
+            </StackPanel>
         </Border>
 
         <!-- Нижняя панель с кнопкой "Назад" -->

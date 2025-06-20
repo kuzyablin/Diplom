@@ -1,0 +1,83 @@
+﻿<Window x:Class="DiplomWpf2.Kolvo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        Title="Количество" Height="200" Width="300">
+    <Grid Background="White">
+        <!-- Ресурсы со стилями -->
+        <Grid.Resources>
+            <!-- Стиль текстового поля -->
+            <Style x:Key="CleanTextBox" TargetType="TextBox">
+                <Setter Property="Background" Value="#FFF9F0"/>
+                <Setter Property="BorderBrush" Value="#FFB74D"/>
+                <Setter Property="BorderThickness" Value="0 0 0 2"/>
+                <Setter Property="Foreground" Value="#5D4037"/>
+                <Setter Property="Padding" Value="6"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <!-- Стиль кнопки -->
+            <Style x:Key="RoundOrangeButton" TargetType="Button">
+                <Setter Property="Background" Value="#FF9800"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Height" Value="32"/>
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="16">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                          HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <!-- Основная компоновка -->
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Заголовок -->
+                <RowDefinition Height="Auto"/>
+                <!-- Поле ввода -->
+                <RowDefinition Height="*"/>
+                <!-- Гибкое пространство -->
+                <RowDefinition Height="Auto"/>
+                <!-- Кнопка -->
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <TextBlock Text="Введите количество:" 
+               Grid.Row="0"
+               Margin="0,0,0,8"
+               Foreground="#E65100"
+               FontSize="14"
+               FontWeight="SemiBold"/>
+
+            <!-- Поле ввода -->
+            <TextBox x:Name="QuantityTextBox"
+             Grid.Row="1"
+             Style="{StaticResource CleanTextBox}"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Stretch"
+             Text="0"/>
+
+            <!-- Кнопка (выровнена по правому нижнему углу) -->
+            <Button Content="ОК"
+            Grid.Row="3"
+            Style="{StaticResource RoundOrangeButton}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="OkButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

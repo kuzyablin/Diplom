@@ -14,8 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
 
 namespace DiplomWpf2
 {
@@ -28,28 +28,45 @@ namespace DiplomWpf2
         private BuketDTO selectedBuket;
 
         private ObservableCollection<TovarDTO> selectedTovar;
+        private List<KrossBuketDTO> buket;
+        public List<KrossBuketDTO> Bukets { get => buket; set { buket = value; Signal(); } }
+      
+
         public List<TovarDTO> Tovars { get; set; }
-        //public ObservableCollection<TovarDTO> SelectedTovars
-        //{
-        //    get => selectedTovar;
-        //    set
-        //    {
-        //        selectedTovar = value;
-        //        Signal();
-        //    }
-        //}
+        public ObservableCollection<TovarDTO> SelectedTovar
+        {
+            get => selectedTovar;
+            set
+            {
+                selectedTovar = value;
+                Signal();
+            }
+        }
         public BuketDTO SelectedBuket
         {
             get => selectedBuket;
             set
             {
                 selectedBuket = value;
+                Signal();
+            }
+        }
+
+        public KrossBuketDTO KrossBuketDTO 
+        {
+            get => KrossBuketDTO;
+            set
+            {
+                KrossBuketDTO = value;
+                Signal();
             }
         }
         public MoreWindow(BuketDTO buket)
         {
             InitializeComponent();
             SelectedBuket = buket;
+
+            
             LoadTovar();            
             DataContext = this;
             this.User = User;
@@ -58,14 +75,23 @@ namespace DiplomWpf2
         public event PropertyChangedEventHandler? PropertyChanged;
         public void Signal([CallerMemberName] string prop = null) =>
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
         private async Task LoadTovar()
         {
-            Tovars = await Client.Instance.GetTovar();
-            //SelectedTovars = new ObservableCollection<TovarDTO>(SelectedBuket.Tovars);
+            await GHP();
+            Bukets = new List<KrossBuketDTO>(Bukets.Where(e => e.IdBuketNavigation.IdBuket == SelectedBuket.IdBuket));
 
+            //Tovars = await Client.Instance.GetTovar();
+            SelectedTovar = new ObservableCollection<TovarDTO>(SelectedBuket.Tovars);
+
+            //sostavBuket.ItemsSource = SelectedTovar.ToList(); 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tovars)));
         }
 
+        private async Task GHP()
+        {
+            Bukets = await Client.Instance.GetKrossBukets();
+        }
         private void Back(object sender, RoutedEventArgs e)
         {
             Close();

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DiplomWpf2"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="500" Width="800" MaxHeight="500" MaxWidth="800">
+        Title="Главное окно" Height="500" Width="800" MaxHeight="500" MaxWidth="800">
     <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="Button">
@@ -68,14 +68,13 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Header with logo and navigation -->
         <Border Grid.ColumnSpan="3" Background="White" BorderThickness="0 0 0 1" BorderBrush="#F56E53">
             <Grid>
                 <StackPanel HorizontalAlignment="Left" Margin="50 0 0 0" VerticalAlignment="Center" Orientation="Horizontal">
                     <Button Content="Букеты" Click="buttonBuket" Style="{StaticResource {x:Type Button}}"
-                    Background="#F56E53" FontSize="18"/>
+            Background="#F56E53" FontSize="18"/>
                     <Button Content="Товары" Click="buttonTovar" Style="{StaticResource {x:Type Button}}"
-                    Background="#F56E53" FontSize="18"/>
+            Background="#F56E53" FontSize="18"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 0 20 0">
@@ -91,7 +90,7 @@
         </Border>
 
         <!-- Products grid -->
-        <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserAddRows="False" 
+        <DataGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" CanUserAddRows="False" 
           AutoGenerateColumns="False" ItemsSource="{Binding Bukets}" 
           SelectedItem="{Binding SelectedBuket}" SelectionMode="Single">
             <DataGrid.Columns>
@@ -129,25 +128,6 @@
         </DataGrid>
 
         <!-- Side panel -->
-        <Border Grid.Column="2" Grid.Row="1" Background="#FFF9F9F9" BorderThickness="1 0 0 0" BorderBrush="#E0E0E0">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label Content="Спец. предложения" FontSize="14" FontWeight="Bold" 
-               Foreground="#FF1E00" HorizontalAlignment="Center" Margin="0 0 0 20"/>
-
-                <!-- Promo items would go here -->
-                <Border Width="120" Height="120" Background="#FFF5F5F5" Margin="0 0 0 15" 
-                BorderThickness="1" CornerRadius="5">
-                    <Image Source="/Img/promo1.png" Stretch="Uniform"/>
-                </Border>
-
-                <Border Width="120" Height="120" Background="#FFF5F5F5" Margin="0 0 0 15" 
-                BorderThickness="1" CornerRadius="5">
-                    <Image Source="/Img/promo2.png" Stretch="Uniform"/>
-                </Border>
-
-                <Button Content="Скидка 15%" Width="120" Background="#FFC107" BorderBrush="#FFA000" 
-                Foreground="#795548" FontWeight="Bold" />
-            </StackPanel>
-        </Border>
+        
     </Grid>
 </Window>

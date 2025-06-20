@@ -1,0 +1,149 @@
+﻿<Window x:Class="DiplomWpf2.SalesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        Title="SalesWindow" Height="450" Width="500">
+    <Grid Background="White">
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Padding" Value="15"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="Margin" Value="5 8"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Montserrat"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Background" Value="#F56E53"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF1E00"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок с закругленными углами -->
+        <Border Grid.Row="0" Background="#F56E53" CornerRadius="10 10 0 0" 
+            Margin="20 20 20 0" Padding="15">
+            <TextBlock Text="Актуальные скидки" 
+                 FontFamily="Playfair Display"
+                 FontSize="28"
+                 FontWeight="Bold"
+                 Foreground="White"
+                 HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Список скидок -->
+        <Border Grid.Row="1" Margin="20 0 20 10" CornerRadius="0 0 10 10" 
+            BorderBrush="#E0E0E0" BorderThickness="1">
+            <ItemsControl ItemsSource="{Binding Skidkas}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10" Padding="15" Background="#FFF9F9F9" CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Название скидки -->
+                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                     Text="Название:"
+                                     FontWeight="Bold"
+                                     Foreground="#4CAF50"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding NameSkidka}"
+                                     FontSize="16"
+                                     Margin="5 0 0 0"/>
+
+                                <!-- Процент скидки -->
+                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                     Text="Размер скидки:"
+                                     FontWeight="Bold"
+                                     Foreground="#4CAF50"
+                                     Margin="0 10 0 0"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                     Text="{Binding PriceSkidka, StringFormat={}{0}%}"
+                                     FontSize="16"
+                                     Foreground="#FF1E00"
+                                     FontWeight="Bold"
+                                     Margin="5 10 0 0"/>
+
+                                <!-- Описание -->
+                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                     Text="Описание:"
+                                     FontWeight="Bold"
+                                     Foreground="#4CAF50"
+                                     Margin="0 10 0 0"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1"
+                                     Text="{Binding DescriptionSkidka}"
+                                     TextWrapping="Wrap"
+                                     Margin="5 10 0 0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+
+        <!-- Кнопка "Назад" -->
+        <Border Grid.Row="2" Background="#FFF9F9F9" BorderThickness="0 1 0 0" BorderBrush="#E0E0E0">
+            <Button Content="Назад" 
+              HorizontalAlignment="Right"
+              Margin="20 10"
+              Click="Back"
+              Background="#4CAF50"
+              Foreground="White">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#388E3C"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
+    </Grid>
+</Window>

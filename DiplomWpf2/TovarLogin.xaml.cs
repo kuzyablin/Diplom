@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -97,18 +98,18 @@ namespace DiplomWpf2
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tovars)));
         }
 
-        //private async Task LoadTypeTovar()
-        //{
-        //    try
-        //    {
-        //        var client = Client.Instance;
-        //        TypeTovars = await client.GetType();
-        //        TypeTovars.Insert(0, new TypeTovarDTO { NameType = "Все типы товара" });
-        //        SelectedTypeTovars = TypeTovars.First();
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeTovars)));
-        //    }
-        //    catch { }
-        //}
+        private async Task LoadTypeTovar()
+        {
+            try
+            {
+                var client = Client.Instance;
+                TypeTovars = await client.GetType();
+                TypeTovars.Insert(0, new TypeTovarDTO { NameType = "Все типы товара" });
+                SelectedTypeTovars = TypeTovars.First();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeTovars)));
+            }
+            catch { }
+        }
 
         byte[] defaultImage;
         private async void AddOrder(object sender, RoutedEventArgs e)
@@ -134,7 +135,8 @@ namespace DiplomWpf2
                 }
             }
 
-            order.Tovars.Add(SelectedTovar);
+
+            
             await Client.Instance.AddTovarToOrder(order, SelectedTovar, 1);
 
             new OrderWindow(order).ShowDialog();

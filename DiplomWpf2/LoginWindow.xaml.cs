@@ -11,8 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 using Microsoft.Win32;
 
 namespace DiplomWpf2

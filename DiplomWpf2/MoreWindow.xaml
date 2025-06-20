@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomWpf2"
         mc:Ignorable="d"
-        Title="MoreWindow" Height="450" Width="500">
+        Title="Подробнее" Height="450" Width="500">
     <Grid Background="White">
         <Grid.Resources>
             <!-- Стили из первоначального оформления -->
@@ -138,8 +138,14 @@
                            Foreground="#4CAF50"
                            Margin="0 15 0 0"/>
                     <Border Background="#F1F8E9" CornerRadius="8" Padding="10">
-                        <ListBox ItemsSource="{Binding Tovars}"
-                             DisplayMemberPath="NameTovar"/>
+                        <ListView  ItemsSource="{Binding Bukets}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding IdTovarNavigation.NameTovar}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                             
                     </Border>
                 </StackPanel>
             </ScrollViewer>

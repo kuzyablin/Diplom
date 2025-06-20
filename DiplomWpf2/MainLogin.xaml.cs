@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,8 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -40,7 +42,7 @@ namespace DiplomWpf2
             }
         }
         private ObservableCollection<BuketDTO> bukets { get; set; }
-        public OrderDTO order;
+        public OrderDTO order { get; set; }
         public UserDTO User { get; set; }
 
         public MainLogin(UserDTO user)
@@ -65,6 +67,7 @@ namespace DiplomWpf2
             });
         }
 
+
         private async Task LoadBuket(Client client)
         {
             Bukets = new ObservableCollection<BuketDTO>(await client.GetBuket());
@@ -78,17 +81,22 @@ namespace DiplomWpf2
         private bool user;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        void Signal(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        public void Signal([CallerMemberName] string prop = null ) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         private async void AddOrder(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
             SelectedBuket = b.Tag as BuketDTO;
+            
+            OrderDTO order = b.Tag as OrderDTO; /*строчка которую добавил*/
+
             if (SelectedBuket == null) // Добавьте проверку
             {
-                MessageBox.Show("Букет не выбран или данные повреждены");
+                MessageBox.Show("Букет не выбран или данные поврежден");
                 return;
             }
-            if (order == null)
+            //(order == null) что было
+            if (order == null) /*что стало*/
             {
                 order = new OrderDTO { IdUserNavigation = User, IdUser = User.IdUser, CreatedAt = DateTime.Now, IdSkidkaNavigation = new SkidkaDTO { IdSkidka = 1, PriceOrder = 0 } };
                 try
@@ -100,6 +108,7 @@ namespace DiplomWpf2
                     MessageBox.Show(ex.Message);
                     return;
                 }
+                
             }
 
             order.Bukets.Add(SelectedBuket);
@@ -117,7 +126,8 @@ namespace DiplomWpf2
         private void More(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            SelectedBuket = b.Tag as BuketDTO;
+            SelectedBuket = b.Tag as BuketDTO; /*Tovars пустые*/
+            // var buket = await _dbContext.Bukets.Include(b => b.Tovars)
             new MoreWindow(SelectedBuket).ShowDialog();
             LoadBuket();
         }
@@ -125,6 +135,12 @@ namespace DiplomWpf2
         {
             new MainLogin(User).Show();
             Close();
+        }
+
+        private void AddBuket(object sender, RoutedEventArgs e)
+        {
+            new AddBuketWindow(User).Show();
+            
         }
 
         private void buttonTovar(object sender, RoutedEventArgs e)
@@ -140,6 +156,11 @@ namespace DiplomWpf2
         private void Account(object sender, RoutedEventArgs e)
         {
             new AccountWindow(User).Show();
+        }
+        private void Logout(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }

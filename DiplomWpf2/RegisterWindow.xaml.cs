@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DiplomWpf2.DTO;
+
 using System.Xml.Linq;
+using Diplom2.DTO;
 using DiplomWpf2.API;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 

@@ -1,0 +1,84 @@
+﻿<Window x:Class="DiplomWpf2.EditUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomWpf2"
+        mc:Ignorable="d"
+        Title="EditUser" Height="450" Width="800">
+    <!--<Grid>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                --><!-- Название --><!--
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                --><!-- Цена --><!--
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                --><!-- Кол-во --><!--
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                --><!-- Тип товара --><!--
+                <RowDefinition Height="Auto"/>
+                --><!-- Заполнитель --><!--
+                <RowDefinition Height="Auto"/>
+                --><!-- Кнопки --><!--
+            </Grid.RowDefinitions>
+
+            --><!-- Левая часть: поля ввода -->
+
+            <!-- Название --><!--
+            <TextBlock Text="Логин:" FontWeight="SemiBold" Foreground="#D35400" FontSize="14" Grid.Row="0" Grid.Column="0"/>
+            <TextBox Name="NameTextBox" Text="{Binding NameUser, Mode=TwoWay}" 
+         Grid.Row="1" Grid.Column="0" Margin="0,5,21,15" Padding="6" FontSize="14"/>
+
+            --><!-- Почта --><!--
+            <TextBlock Text="Почта:" FontWeight ="SemiBold" Foreground="#D35400" FontSize ="14" Grid.Row ="2" Grid.Column ="0"/>
+            <TextBox Text="{Binding EmailUser, UpdateSourceTrigger=PropertyChanged}" 
+         Grid.Row ="3" Grid.Column ="0" Margin ="0,5,21,15" Padding ="6" FontSize ="14"/>
+
+            --><!-- Номер телефона --><!--
+            <TextBlock Text ="Номер телефона" FontWeight ="SemiBold" Foreground="#D35400" FontSize ="14" Grid.Row ="4" Grid.Column ="0"/>
+            <TextBox Text="{Binding NumberUser, UpdateSourceTrigger=PropertyChanged}" 
+         Grid.Row ="5" Grid.Column ="0" Margin ="0,5,21,15" Padding ="6" FontSize ="14"/>
+                        
+
+            --><!-- Кнопки снизу справа --><!--
+            <StackPanel Orientation= "Horizontal"
+             HorizontalAlignment= "Right"
+             Grid.Row= "8"
+             Grid.ColumnSpan= "2"
+             Margin= "0,10,0,0">
+                <Button Content=  "Назад"
+            Width= "100" 
+            Click="Back"
+            Margin= "10"
+            Padding= "6"
+            Background="#F39C12"
+            Foreground="#fffaf0"
+            BorderBrush="#D35400"
+            BorderThickness="5"
+            Cursor="Hand"
+            Height = "38"/>
+
+                <Button Content=  "Добавить/Сохранить"
+            Width= "100"
+            Margin= "10"
+            Padding= "6"
+            Background="#D35400"
+            Foreground="#fffaf0"
+            BorderBrush="#B03A02"
+            BorderThickness="5"
+            Cursor="Hand"
+            Click="Save"
+            Height = "38"/>
+            </StackPanel>
+        </Grid>
+    </Grid>-->
+</Window>

@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using DiplomWpf2.DTO;
+using Diplom2.DTO;
 using DiplomWpf2.Tools;
 using Newtonsoft.Json;
 
@@ -27,7 +27,7 @@ namespace DiplomWpf2.API
         public static Client Instance
         {
             get
-            {
+            { 
                 if (instance == null)
                     instance = new Client();
                 return instance;
@@ -55,6 +55,28 @@ namespace DiplomWpf2.API
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+        public async Task<List<TypeTovarDTO>> GetTypeTovar()
+        {
+            try
+            {
+                var responce = await httpClient.GetAsync("TypeTovar");
+                if (responce.IsSuccessStatusCode)
+                {
+                    var content = await responce.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<TypeTovarDTO>>(content);
+
+                }
+                else
+                {
+                    throw new Exception($"Error: {responce.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -336,7 +358,7 @@ namespace DiplomWpf2.API
         {
             var jsonContent = JsonConvert.SerializeObject(buket);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync("Buket/AddBuket", httpContent);
+            HttpResponseMessage response = await httpClient.PostAsync("Buket", httpContent);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Не удалось создать букет.");
@@ -347,7 +369,7 @@ namespace DiplomWpf2.API
         {
             var jsonContent = JsonConvert.SerializeObject(order);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync("Order", httpContent);
+            HttpResponseMessage response = await httpClient.PostAsync("Order/AddOrder", httpContent);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Не удалось создать заказ.");
@@ -357,6 +379,7 @@ namespace DiplomWpf2.API
                 order.IdOrder = await response.Content.ReadFromJsonAsync<int>();
             }
         }
+        //kchelrutop1@bk.ru
 
         //public async Task AddTovarAsync(KrossOrderDTO krossOrder)
         //{
@@ -371,7 +394,30 @@ namespace DiplomWpf2.API
         //        }
         //    }
         //}
+        public async Task<bool> AddKrossBuket(KrossBuketDTO smenaDTO)
+        {
 
+            try
+            {
+                //var test =   System.Text.Json.JsonSerializer.Serialize(tovarDTO);
+                var responce = httpClient.PostAsJsonAsync("KrossBuket", smenaDTO).Result;
+                if (responce.IsSuccessStatusCode)
+                {
+
+                    return true;
+
+                }
+                else
+                {
+                    throw new Exception($"Error: {responce.ReasonPhrase}");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         public async Task AddBuketToOrder(OrderDTO order, BuketDTO buket, int count)
         {
             var jsonContent = JsonConvert.SerializeObject(buket);
@@ -419,6 +465,19 @@ namespace DiplomWpf2.API
             // MessageBox.Show(response.StatusCode.ToString());
             return order;
         }
+
+        //public async Task<UserDTO> EditUser(UserDTO user, int id)
+        //{
+        //    var shit = System.Text.Json.JsonSerializer.Serialize(user);
+        //    using StringContent jsonContent = new(
+        //           shit,
+        //           Encoding.UTF8,
+        //           "application/json");
+        //    using HttpResponseMessage response = await httpClient.PutAsync("User/{id}" + user.IdUser, jsonContent);
+        //    response.EnsureSuccessStatusCode();
+        //    // MessageBox.Show(response.StatusCode.ToString());
+        //    return user;
+        //}
 
         //УДАЛЕНИЕ
 
@@ -492,6 +551,7 @@ namespace DiplomWpf2.API
             UserDTO userDTO = await httpClient.GetFromJsonAsync<UserDTO>($"User/{ClientData.Id}");
             return userDTO;
         }
+        
 
         public static async Task<bool> VerifyCodeAsync(string email, string code)
         {

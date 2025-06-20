@@ -10,8 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -119,6 +120,7 @@ namespace DiplomWpf2
         //    new MoreWindow(SelectedBuket).ShowDialog();
         //    LoadBuket();
         //}
+        
         private void buttonBuket(object sender, RoutedEventArgs e)
         {
             new MainWindow(User).Show();
@@ -131,10 +133,10 @@ namespace DiplomWpf2
             Close();
         }
 
-        //private void Basket(object sender, RoutedEventArgs e)
-        //{
-        //    new OrderWindow(order).Show();
-        //}
+        private void Basket(object sender, RoutedEventArgs e)
+        {
+            new OrderWindow(order).Show();
+        }
         private void Login(object sender, RoutedEventArgs e)
         {
             new LoginWindow().Show();

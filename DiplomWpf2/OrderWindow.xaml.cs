@@ -15,8 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -75,8 +76,7 @@ namespace DiplomWpf2
         public async Task GetItems()
         {
             Items = new ObservableCollection<NewShit>(SelectedOrder.Bukets.GroupBy(s => s.NameBuket).Select(s => new NewShit { Count = s.Count(), Buket = s.First(), Price = s.Sum(d => d.PriceBuket) }));
-            Items = new ObservableCollection<NewShit>(SelectedOrder.Tovars.GroupBy(s => s.NameTovar).Select(s => new NewShit { Count = s.Count(), Tovar = s.First(), Price = s.Sum(d => d.PriceTovar) }));
-            Orders = new List<OrderDTO>(await Client.Instance.GetOrder());
+        
         }
 
         private void Back(object sender, RoutedEventArgs e)
@@ -88,12 +88,12 @@ namespace DiplomWpf2
         {
             if (Items.Count() == 0)
             {
-                MessageBox.Show("Заказ не оформлен! Выберите блюдо!");
+                MessageBox.Show("Заказ не оформлен! Выберите позиции!");
                 return;
             }
             else
             {
-                new OrderWindow(SelectedOrder).ShowDialog();
+                MessageBox.Show("Заказ оформлен");
                 Close();
             }
         }
@@ -132,48 +132,13 @@ namespace DiplomWpf2
             }
         }
 
-        private async void AddTovar(object sender, RoutedEventArgs e)
-        {
-            Button b = sender as Button;
-            SelectedShit = b.Tag as NewShit;
-            await Client.Instance.AddTovarToOrder(SelectedOrder, SelectedShit.Tovar, Count);
-            SelectedOrder.Tovars.Add(SelectedShit.Tovar);
-
-            GetItems();
-            Signal(nameof(Price));
-            Signal(nameof(Count));
-            Signal(nameof(Items));
-        }
-
         
-        private async void DeleteTovar(object sender, RoutedEventArgs e)
-        {
-            Button b = sender as Button;
-            SelectedShit = b.Tag as NewShit;
-            try
-            {
-
-                await Client.Instance.DeleteTovarInOrder(SelectedShit.Tovar.IdTovar);
-                SelectedOrder.Tovars.Remove(SelectedShit.Tovar);
-                Items.Remove(SelectedShit);
-
-                GetItems();
-                Signal(nameof(Count));
-                Signal(nameof(Price));
-                Signal(nameof(Items));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
     }
     public class NewShit
      
         {
             public int Count { get; internal set; }
             public BuketDTO Buket { get; internal set; }
-             public TovarDTO Tovar { get; internal set; }
             public decimal? Price { get; internal set; }
         }
     

@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -45,15 +46,12 @@ namespace DiplomWpf2
         public void Signal([CallerMemberName] string prop = null) =>
           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
-        private void ChangePassword(object sender, RoutedEventArgs e)
-        {
+        
 
-        }
-
-        private void EditProfile(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //private void EditProfile(object sender, RoutedEventArgs e)
+        //{
+        //    new EditUser(User).Show();
+        //}
 
         private void Back(object sender, RoutedEventArgs e)
         {

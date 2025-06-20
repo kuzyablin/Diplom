@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Diplom2.DTO;
 using DiplomWpf2.API;
-using DiplomWpf2.DTO;
+
 
 namespace DiplomWpf2
 {
@@ -110,30 +111,30 @@ namespace DiplomWpf2
         }
 
         byte[] defaultImage;
-        //private async void AddOrder(object sender, RoutedEventArgs e)
-        //{
-        //    Button b = sender as Button;
-        //    SelectedTovar = b.Tag as TovarDTO;
-        //    if (order == null)
-        //    {
-        //        order = new OrderDTO();
-        //        try
-        //        {
-        //            await Client.Instance.AddOrderAsync(order);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show(ex.Message);
-        //            return;
-        //        }
-        //    }
+        private async void AddOrder(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            SelectedTovar = b.Tag as TovarDTO;
+            if (order == null)
+            {
+                order = new OrderDTO();
+                try
+                {
+                    await Client.Instance.AddOrderAsync(order);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
 
-        //    order.Tovars.Add(SelectedTovar);
-        //    await Client.Instance.AddTovarToOrder(order, SelectedTovar, 1);
+            order.Tovars.Add(SelectedTovar);
+            await Client.Instance.AddTovarToOrder(order, SelectedTovar, 1);
 
-        //    new OrderWindow(order).ShowDialog();
-        //    LoadTovar();
-        //}
+            new OrderWindow(order).ShowDialog();
+            LoadTovar();
+        }
         private void LoadDefaultImage()
         {
             var stream = Application.GetResourceStream(new Uri("Img\\picturee.png", UriKind.Relative));
@@ -158,10 +159,10 @@ namespace DiplomWpf2
             new TovarWindow(User).Show();
             Close();
         }
-        //private void Basket(object sender, RoutedEventArgs e)
-        //{
-        //    new OrderWindow(order).Show();
-        //}
+        private void Basket(object sender, RoutedEventArgs e)
+        {
+            new OrderWindow(order).Show();
+        }
         private void Login(object sender, RoutedEventArgs e)
         {
             new LoginWindow().Show();
